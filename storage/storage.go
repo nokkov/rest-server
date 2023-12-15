@@ -44,7 +44,7 @@ func New(cfg *config.DatabaseConfig) (*Storage, error) {
 	return &Storage{db: db}, nil
 }
 
-func CreateTableIfNotExists(db *sql.DB) error {
+func MustLoad(db *sql.DB) error {
 	stmt, err := db.Prepare(`
 		CREATE TABLE IF NOT EXISTS urls (
 			id INTEGER PRIMARY KEY SERIAL,
@@ -64,5 +64,5 @@ func CreateTableIfNotExists(db *sql.DB) error {
 		return err
 	}
 
-	// return nil
+	return db.Ping()
 }

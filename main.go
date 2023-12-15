@@ -13,4 +13,5 @@ func main() {
 	// TODO: create database entity struct
 	// TODO: create MustLoad() for database
 	// TODO: check if table exist + ping Database
+
 }

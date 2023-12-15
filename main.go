@@ -1,5 +1,12 @@
 package main
 
+import (
+	"fmt"
+	"rest_server/config"
+)
+
 func main() {
-	// TODO: init config (cleanenv)
+	config := config.MustLoad()
+
+	fmt.Print(config)
 }

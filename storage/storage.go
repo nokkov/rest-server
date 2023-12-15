@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 	"rest_server/config"
+
+	_ "github.com/lib/pq"
 )
 
 type Entity struct {
@@ -24,7 +26,7 @@ func New(cfg *config.DatabaseConfig) (*Storage, error) {
 
 	switch cfg.Type {
 	case "postgresql":
-		driver = "postgresql"
+		driver = "postgres"
 		connInfo = fmt.Sprintf("host=%s port=%s user=%s "+
 			"password=%s dbname=%s sslmode=disable",
 			cfg.Host, cfg.Port, cfg.User, cfg.Password, cfg.DbName)
@@ -40,6 +42,8 @@ func New(cfg *config.DatabaseConfig) (*Storage, error) {
 	if err != nil {
 		return nil, fmt.Errorf("%s: %w", connInfo, err)
 	}
+
+	MustLoad(db)
 
 	return &Storage{db: db}, nil
 }

@@ -1,5 +1,7 @@
 package config
 
+import "time"
+
 type AppConfig struct {
 	Env string `yaml: "env" env-default: "local" env-required: "true"`
 }
@@ -13,6 +15,6 @@ type DatabaseConfig struct {
 }
 
 type HttpServerConfig struct {
-	Address     string `yaml: "address" env-required: "true"`
-	IdleTimeout int    `yaml: "idle_timeout" env-required: "true"`
+	Address     string        `yaml: "address" env-required: "true"`
+	IdleTimeout time.Duration `yaml: "idle_timeout" env-required: "true"`
 }

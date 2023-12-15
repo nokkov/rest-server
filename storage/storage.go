@@ -17,10 +17,8 @@ type Storage struct {
 	db *sql.DB
 }
 
-// default database is postgre => planning to make it possible to swotch
-// databases
-func New(cfg *config.DatabaseConfig, storage *Storage) (*Storage, error) {
-
+// TODO: make postgre as default database
+func New(cfg *config.DatabaseConfig) (*Storage, error) {
 	var driver string
 	var connInfo string
 
@@ -44,4 +42,27 @@ func New(cfg *config.DatabaseConfig, storage *Storage) (*Storage, error) {
 	}
 
 	return &Storage{db: db}, nil
+}
+
+func CreateTableIfNotExists(db *sql.DB) error {
+	stmt, err := db.Prepare(`
+		CREATE TABLE IF NOT EXISTS urls (
+			id INTEGER PRIMARY KEY SERIAL,
+			url TEXT NOT NULL,
+			short_url TEXT NOT NULL UNIQUE
+		);
+
+		CREATE INDEX IF NOT EXISTS idx_short_url ON url(alias);
+	`)
+
+	if err != nil {
+		return err
+	}
+
+	_, err = stmt.Exec()
+	if err != nil {
+		return err
+	}
+
+	// return nil
 }

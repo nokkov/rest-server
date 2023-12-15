@@ -19,6 +19,7 @@ type EnvConfig struct {
 }
 
 type DatabaseConfig struct {
+	Type     string `yaml: "type" env-required: "true"`
 	Host     string `yaml: "host" env-required: "true"`
 	Port     string `yaml: "port" env-required: "true"`
 	User     string `yaml: "user" env-required: "true"`
@@ -33,6 +34,7 @@ type HttpServerConfig struct {
 
 func MustLoad() AppConfig {
 	configPath := os.Getenv("CONFIG_PATH")
+
 	if configPath == "" {
 		log.Fatal("CONFIG_PATH is not set")
 	}

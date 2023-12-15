@@ -4,6 +4,7 @@ env: "local" #local, dev, prod
 address: "localhost:8084"
 idle_timeout: 60s #client connection lifetime when no operations provided
 
+type: "postgresql"
 host: "localhost"
 port: 5432
 user: "postgres"

@@ -19,9 +19,15 @@ func main() {
 
 	log.Info("starting url-shortener...")
 
-	stg, _ := database.New(&config.DbCfg)
-	// FIXME: connection refused
-	err := stg.SaveUrl("google.com", "short.devops/google") //is it actually short? xD
+	stg, err := database.New(&config.DbCfg)
+
+	if err != nil {
+		fmt.Print(err)
+	}
+
+	log.Info("database create...")
+
+	err = stg.SaveUrl("google.com", "short.devops/google") //is it actually short? xD
 	fmt.Print(err)
 }
 

@@ -38,7 +38,11 @@ func New(cfg *config.DatabaseConfig) (*Storage, error) {
 		return nil, fmt.Errorf("%s: %w", connInfo, err)
 	}
 
-	MustLoad(db)
+	err = MustLoad(db)
+
+	if err != nil {
+		return nil, fmt.Errorf("ping error: %s", err)
+	}
 
 	return &Storage{db: db}, nil
 }
@@ -46,21 +50,19 @@ func New(cfg *config.DatabaseConfig) (*Storage, error) {
 func MustLoad(db *sql.DB) error {
 	stmt, err := db.Prepare(`
 		CREATE TABLE IF NOT EXISTS urls (
-			id INTEGER PRIMARY KEY SERIAL,
+			id SERIAL PRIMARY KEY,
 			url TEXT NOT NULL,
 			short_url TEXT NOT NULL UNIQUE
 		);
-
-		CREATE INDEX IF NOT EXISTS idx_short_url ON url(short_url);
 	`)
 
 	if err != nil {
-		return err
+		return fmt.Errorf("MustLoad() prepare: %s", err)
 	}
 
 	_, err = stmt.Exec()
 	if err != nil {
-		return err
+		return fmt.Errorf("MustLoad() exec prepare: %s", err)
 	}
 
 	return db.Ping()

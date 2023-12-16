@@ -51,7 +51,7 @@ func MustLoad(db *sql.DB) error {
 			short_url TEXT NOT NULL UNIQUE
 		);
 
-		CREATE INDEX IF NOT EXISTS idx_short_url ON url(alias);
+		CREATE INDEX IF NOT EXISTS idx_short_url ON url(short_url);
 	`)
 
 	if err != nil {

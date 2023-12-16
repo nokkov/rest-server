@@ -1,20 +1,32 @@
 package main
 
 import (
-	"fmt"
+	"log/slog"
+	"os"
 	"rest_server/config"
-	database "rest_server/storage"
+)
+
+const (
+	envLocal = "local"
+	envProd  = "prod"
 )
 
 func main() {
 	config := config.MustLoad()
+	log := setupLogger(config.EnvCfg.Env)
 
-	fmt.Print(config)
+	log.Info("starting url-shortener...")
+}
 
-	// TODO: create database entity struct
-	// TODO: create MustLoad() for database
-	// TODO: check if table exist + ping Database
+func setupLogger(env string) *slog.Logger {
+	var log *slog.Logger
 
-	_, err := database.New(&config.DbCfg)
-	fmt.Print(err)
+	switch env {
+	case envLocal:
+		log = slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug}))
+	case envProd:
+		log = slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelInfo}))
+	}
+
+	return log
 }

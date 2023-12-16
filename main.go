@@ -1,9 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"log/slog"
 	"os"
 	"rest_server/config"
+	database "rest_server/storage"
 )
 
 const (
@@ -16,6 +18,10 @@ func main() {
 	log := setupLogger(config.EnvCfg.Env)
 
 	log.Info("starting url-shortener...")
+
+	_, err := database.New(&config.DbCfg)
+
+	fmt.Print(err)
 }
 
 func setupLogger(env string) *slog.Logger {

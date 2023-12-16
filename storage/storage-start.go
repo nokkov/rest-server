@@ -1,4 +1,4 @@
-package database
+package storage
 
 import (
 	"database/sql"
@@ -15,11 +15,6 @@ type Entity struct {
 	short_url string
 }
 
-type Storage struct {
-	db *sql.DB
-}
-
-// TODO: make postgre as default database
 func New(cfg *config.DatabaseConfig) (*Storage, error) {
 	var driver string
 	var connInfo string

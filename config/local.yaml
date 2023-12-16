@@ -1,4 +1,4 @@
-env: "local" #local, dev, prod
+env: "local" #local, prod
 
 
 address: "localhost:8084"

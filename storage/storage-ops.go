@@ -16,6 +16,8 @@ func (stg *Storage) SaveUrl(urlToSave, short_url string) error {
 		return fmt.Errorf("SaveUrl() prepare: %s", err)
 	}
 
+	defer stmt.Close()
+
 	_, err = stmt.Exec(urlToSave, short_url)
 	if err != nil {
 		return fmt.Errorf("SaveUrl() exec prepare: %s", err)

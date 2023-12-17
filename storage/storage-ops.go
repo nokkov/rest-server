@@ -25,3 +25,29 @@ func (stg *Storage) SaveUrl(urlToSave, short_url string) error {
 
 	return nil
 }
+
+func (stg *Storage) GetUrl(searchedUrl string) (string, error) {
+	stmt, err := stg.db.Prepare("SELECT * FROM urls WHERE short_url = $1")
+
+	if err != nil {
+		return "", fmt.Errorf("GetUrl() prepare: %s", err)
+	}
+
+	defer stmt.Close()
+
+	row := stmt.QueryRow(searchedUrl)
+
+	if row.Err() != nil {
+		return "", fmt.Errorf("GetUrl() query row: %s", err)
+	}
+
+	var result *Entity
+
+	row.Scan(result)
+
+	if result.url != "" {
+		return result.url, nil
+	} else {
+		return "", nil
+	}
+}

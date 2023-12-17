@@ -27,8 +27,13 @@ func main() {
 
 	log.Info("database create...")
 
-	err = stg.SaveUrl("google.com", "short.devops/google") //is it actually short? xD
-	fmt.Print(err)
+	link, err := stg.GetUrl("short.devops/google") //is it actually short? xD
+
+	if err != nil {
+		fmt.Print(err)
+	}
+
+	fmt.Print(link)
 }
 
 func setupLogger(env string) *slog.Logger {

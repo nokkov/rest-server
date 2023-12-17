@@ -41,9 +41,13 @@ func (stg *Storage) GetUrl(searchedUrl string) (string, error) {
 		return "", fmt.Errorf("GetUrl() query row: %s", err)
 	}
 
-	var result *Entity
+	var result Entity
 
-	row.Scan(result)
+	row.Scan(&result.id, &result.url, &result.short_url)
+
+	fmt.Println("id:", result.id)
+	fmt.Println("url:", result.url)
+	fmt.Println("short_url:", result.short_url)
 
 	if result.url != "" {
 		return result.url, nil

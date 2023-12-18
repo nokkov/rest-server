@@ -32,7 +32,7 @@ func (stg *Storage) GetUrl(searchedUrl string) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("GetUrl() prepare: %s", err)
 	}
-
+	// TODO: what if url doesnt exist?
 	defer stmt.Close()
 
 	row := stmt.QueryRow(searchedUrl)
@@ -54,4 +54,22 @@ func (stg *Storage) GetUrl(searchedUrl string) (string, error) {
 	} else {
 		return "", nil
 	}
+}
+
+func (stg *Storage) DeleteUrl(urlToDelete string) error {
+	stmt, err := stg.db.Prepare("DELETE FROM urls WHERE short_url = $1")
+
+	if err != nil {
+		return fmt.Errorf("DeleteUrl() prepare: %s", err)
+	}
+
+	defer stmt.Close()
+
+	_, err = stmt.Exec(urlToDelete)
+
+	if err != nil {
+		return fmt.Errorf("DeleteUrl() exec prepare: %s", err)
+	}
+
+	return nil
 }

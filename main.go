@@ -27,13 +27,11 @@ func main() {
 
 	log.Info("database create...")
 
-	link, err := stg.GetUrl("short.devops/google") //is it actually short? xD
+	err = stg.DeleteUrl("short.devops/google")
 
 	if err != nil {
 		fmt.Print(err)
 	}
-
-	fmt.Print(link)
 }
 
 func setupLogger(env string) *slog.Logger {

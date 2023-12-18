@@ -1,11 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"log/slog"
 	"os"
 	"rest_server/config"
-	database "rest_server/storage"
+
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 )
 
 const (
@@ -19,19 +20,12 @@ func main() {
 
 	log.Info("starting url-shortener...")
 
-	stg, err := database.New(&config.DbCfg)
+	router := chi.NewRouter()
 
-	if err != nil {
-		fmt.Print(err)
-	}
+	router.Use(middleware.RequestID) // useful for tracing
+	router.Use(middleware.Recoverer)
+	router.Use(middleware.URLFormat)
 
-	log.Info("database create...")
-
-	err = stg.DeleteUrl("short.devops/google")
-
-	if err != nil {
-		fmt.Print(err)
-	}
 }
 
 func setupLogger(env string) *slog.Logger {

@@ -6,7 +6,6 @@ import (
 
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/render"
-	"github.com/go-playground/validator"
 	"github.com/go-playground/validator/v10"
 )
 
@@ -39,7 +38,11 @@ func New(log *slog.Logger, urlSaver URLSaver) http.HandlerFunc {
 		log.Info("request body decoded", slog.Any("request", req))
 
 		if err := validator.New().Struct(req); err != nil {
-			//TODO
+			log.With("struct validation fault: ", err)
+			render.JSON(w, r, Error("failed to validate request"))
+			return
 		}
+
+		//TODO: save url
 	}
 }

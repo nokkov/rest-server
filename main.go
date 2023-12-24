@@ -4,6 +4,8 @@ import (
 	"log/slog"
 	"os"
 	"rest_server/config"
+	"rest_server/handlers"
+	"rest_server/storage"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -20,11 +22,15 @@ func main() {
 
 	log.Info("starting url-shortener...")
 
+	stg, _ := storage.New(&config.DbCfg)
+
 	router := chi.NewRouter()
 
 	router.Use(middleware.RequestID) // useful for tracing
 	router.Use(middleware.Recoverer)
 	router.Use(middleware.URLFormat)
+
+	router.Post("/url", handlers.New(log, stg))
 
 }
 

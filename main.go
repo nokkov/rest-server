@@ -4,7 +4,7 @@ import (
 	"log/slog"
 	"os"
 	"rest_server/config"
-	"rest_server/handlers"
+	handlers "rest_server/controllers"
 	"rest_server/storage"
 
 	"github.com/go-chi/chi/v5"

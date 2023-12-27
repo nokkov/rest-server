@@ -18,11 +18,11 @@ require (
 require (
 	github.com/BurntSushi/toml v1.3.2 // indirect
 	github.com/ajg/form v1.5.1 // indirect
-	github.com/go-chi/chi/v5 v5.0.10 // indirect
-	github.com/go-chi/render v1.0.3 // indirect
+	github.com/go-chi/chi/v5 v5.0.10
+	github.com/go-chi/render v1.0.3
 	github.com/go-playground/validator v9.31.0+incompatible
 	github.com/go-playground/validator/v10 v10.16.0
-	github.com/ilyakaznacheev/cleanenv v1.5.0 // indirect
+	github.com/ilyakaznacheev/cleanenv v1.5.0
 	github.com/jbarham/gopgsqldriver v0.0.0-20120227112153-f8287ee9bfe2 // indirect
 	github.com/joho/godotenv v1.5.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect

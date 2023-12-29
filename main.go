@@ -2,6 +2,7 @@ package main
 
 import (
 	"log/slog"
+	"net/http"
 	"os"
 	"rest_server/config"
 	handlers "rest_server/controllers"
@@ -33,6 +34,21 @@ func main() {
 	router.Post("/url", handlers.New(log, stg))
 
 	log.Info("starting server...", slog.String("address", config.ServerCfg.Address))
+
+	srv := &http.Server{
+		Addr:         config.ServerCfg.Address,
+		Handler:      router,
+		ReadTimeout:  config.ServerCfg.Timeout,
+		WriteTimeout: config.ServerCfg.Timeout,
+		IdleTimeout:  config.ServerCfg.IdleTimeout,
+	}
+
+	if err := srv.ListenAndServe(); err != nil {
+		log.Error("failed to start server")
+	}
+
+	//srv.ListenAndServe() is a "blocking" function, if the code went beyond it, an error occurred
+	log.Error("server stopped")
 }
 
 func setupLogger(env string) *slog.Logger {

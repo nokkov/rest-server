@@ -32,6 +32,7 @@ func main() {
 
 	router.Post("/url", handlers.New(log, stg))
 
+	log.Info("starting server...", slog.String("address", config.ServerCfg.Address))
 }
 
 func setupLogger(env string) *slog.Logger {

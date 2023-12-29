@@ -11,6 +11,7 @@ import (
 	"rest_server/util"
 )
 
+// TODO: use protobuf instead of json
 type Request struct {
 	URL       string `json: "url" validate: "required, url"`
 	SHORT_URL string `json: "short_url, omitempty"`

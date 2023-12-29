@@ -3,6 +3,7 @@ env: "local" #local, prod
 
 address: "localhost:8084"
 idle_timeout: 60s #client connection lifetime when no operations provided
+timeout: 10s
 
 type: "postgresql"
 host: "localhost"

@@ -31,7 +31,7 @@ func main() {
 	router.Use(middleware.Recoverer) // if a panic on the server => generate http-status 500
 	router.Use(middleware.URLFormat) // parse url extension and store it on the context
 
-	// router.Post("/url", handlers.New(log, stg))
+	router.Post("/save-url", handlers.New(log, stg))
 
 	log.Info("starting server...", slog.String("address", config.ServerCfg.Address))
 

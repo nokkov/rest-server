@@ -18,7 +18,7 @@ type Request struct {
 }
 
 type URLSaver interface {
-	SaveUrl(urlToSave, short_url string) error
+	SaveUrl(urlToSave, shortUrl string) error
 }
 
 // TODO: move to config
@@ -29,7 +29,7 @@ func New(log *slog.Logger, urlSaver URLSaver) http.HandlerFunc {
 
 		log.With(
 			slog.String("op", "handlers.url.save.New"),
-			slog.String("request_id", middleware.GetReqID(r.Context())),
+			slog.String("reqId", middleware.GetReqID(r.Context())),
 		)
 
 		var req Request

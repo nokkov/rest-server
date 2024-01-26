@@ -2,6 +2,7 @@ package storage
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 )
 
@@ -45,15 +46,15 @@ func (stg *Storage) GetUrl(searchedUrl string) (string, error) {
 
 	row.Scan(&result.id, &result.url, &result.short_url)
 
-	fmt.Println("id:", result.id)
-	fmt.Println("url:", result.url)
-	fmt.Println("short_url:", result.short_url)
-
 	if result.url != "" {
+		fmt.Println("id:", result.id)
+		fmt.Println("url:", result.url)
+		fmt.Println("short_url:", result.short_url)
 		return result.url, nil
-	} else {
-		return "", nil
 	}
+
+	return "", errors.New("URL not found")
+
 }
 
 func (stg *Storage) DeleteUrl(urlToDelete string) error {

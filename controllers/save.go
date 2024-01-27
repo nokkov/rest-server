@@ -13,8 +13,7 @@ import (
 
 // TODO: use protobuf instead of json
 type Request struct {
-	URL       string `json: "url" validate: "required, url"`
-	SHORT_URL string `json: "short_url, omitempty"`
+	URL string `json: "url" validate: "required, url"`
 }
 
 type URLSaver interface {
@@ -49,23 +48,9 @@ func New(log *slog.Logger, urlSaver URLSaver) http.HandlerFunc {
 			return
 		}
 
-		//short_url must be unique, if it is not, then generate a new one
-		//TODO: refactor
-		short_url := req.SHORT_URL
-		if short_url == "" {
-			for {
-				short_url = util.NewRandomShortUrl(shortUrlLen)
-				err = urlSaver.SaveUrl(req.URL, short_url)
-				if err == nil {
-					render.JSON(w, r, Response{
-						SHORT_URL: short_url,
-						STATUS:    "OK",
-					},
-					)
-					return
-				}
-			}
-		} else {
+		//TODO: short_url must be unique, if it is not, then generate a new one
+		for {
+			short_url := util.NewRandomShortUrl(shortUrlLen)
 			err = urlSaver.SaveUrl(req.URL, short_url)
 			if err == nil {
 				render.JSON(w, r, Response{
@@ -73,8 +58,6 @@ func New(log *slog.Logger, urlSaver URLSaver) http.HandlerFunc {
 					STATUS:    "OK",
 				},
 				)
-			} else {
-				render.JSON(w, r, Error("short_url already exists"))
 				return
 			}
 		}

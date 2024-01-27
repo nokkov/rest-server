@@ -55,6 +55,7 @@ func MustLoad(db *sql.DB) error {
 			short_url TEXT NOT NULL UNIQUE
 		);
 	`)
+	defer stmt.Close()
 
 	if err != nil {
 		return fmt.Errorf("MustLoad() prepare: %s", err)

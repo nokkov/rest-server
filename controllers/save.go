@@ -48,7 +48,6 @@ func New(log *slog.Logger, urlSaver URLSaver) http.HandlerFunc {
 			return
 		}
 
-		//TODO: short_url must be unique, if it is not, then generate a new one
 		for {
 			short_url := util.NewRandomShortUrl(shortUrlLen)
 			err = urlSaver.SaveUrl(req.URL, short_url)

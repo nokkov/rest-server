@@ -51,7 +51,7 @@ func MustLoad(db *sql.DB) error {
 	stmt, err := db.Prepare(`
 		CREATE TABLE IF NOT EXISTS urls (
 			id SERIAL PRIMARY KEY,
-			url TEXT NOT NULL UNIQUE,
+			url TEXT NOT NULL,
 			short_url TEXT NOT NULL UNIQUE
 		);
 	`)

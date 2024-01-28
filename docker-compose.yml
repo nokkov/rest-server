@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:16.1-alpine
+    environment:
+      POSTGRES_DB: "postgres" # you serious?
+      POSTGRES_USER: "postgres" # you serious?
+      POSTGRES_PASSWORD: "postgres" # you serious?
+    volumes:
+      - /var/lib/postgresql:/var/lib/postgresql
+    ports:
+      - "5432:5432"  
+  rest-server:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 84:84
+    depends_on:
+      - postgres 
+         

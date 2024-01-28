@@ -1,14 +1,14 @@
-FROM golang
+FROM golang:1.21
 
-WORKDIR /url-shortener
+WORKDIR /rest-server
 
-ENV CONFIG_PATH = $WORKDIR/config/local.yaml
-
-COPY . . 
-# TODO: VOLUME here
-
-RUN go get -d ./...
+COPY . .
 
 EXPOSE 8084
+
+RUN go get -d . \
+    && go install
+
+ENV CONFIG_PATH config/local.yaml
 
 CMD ["go", "run", "main.go"]

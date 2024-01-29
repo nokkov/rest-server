@@ -1,0 +1,22 @@
+body {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  background-image: url("../public/retro-background.gif");
+  background-size: cover;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+
+}

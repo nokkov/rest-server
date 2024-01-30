@@ -10,9 +10,12 @@ function App() {
       </div>
       <div className="input-fields">
         <form id="urlForm">
-          <input type="text" id="longUrlField" required></input>
-          <input type="text" id="shortUrlField" readOnly></input>
-          <button type="button" onClick="submitForm()">SEND NUDES!</button>
+          <div className="input-fields-wrapper">
+            <input type="text" id="longUrlField" required></input>
+            <button type="button" onClick="submitForm()">
+              SEND NUDES! 
+            </button>
+          </div>
         </form>  
       </div>
       <script defer src="./handler.js"></script>

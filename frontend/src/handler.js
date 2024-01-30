@@ -1,3 +1,5 @@
 function submitForm() {
-    //TODO
+    console.log('dsa')
 }
+
+export default submitForm;

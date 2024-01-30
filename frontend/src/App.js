@@ -1,4 +1,5 @@
 import './App.css';
+import submitForm from './handler';
 
 function App() {
   return (
@@ -12,13 +13,12 @@ function App() {
         <form id="urlForm">
           <div className="input-fields-wrapper">
             <input type="text" id="longUrlField" required></input>
-            <button type="button" onClick="submitForm()">
+            <button type="button" onClick={submitForm}>
               SEND NUDES! 
             </button>
           </div>
         </form>  
       </div>
-      <script defer src="./handler.js"></script>
     </div>
   );
 }
